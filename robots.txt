@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /404.html
+
+Sitemap: http://rusmone.web-prj.ru/sitemap.xml
+Host: rusmone.web-prj.ru

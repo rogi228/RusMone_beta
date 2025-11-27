@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты — RusMone</title>
+  <meta name="description" content="Свяжитесь с командой проекта RusMone. Обратная связь, почта и форма для предложений по сайту.">
+  <meta name="keywords" content="контакты RusMone, связь, памятные монеты России">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+</head>
+
+<body>
+<header class="header">
+  <div class="container header__inner">
+    <div class="logo-row">
+      <img src="img/logo.png" alt="RusMone" class="logo-img">
+      <span class="logo__text">RusMone</span>
+    </div>
+
+    <nav class="nav">
+      <ul class="nav__list">
+        <li><a href="index.html" class="nav__link">Главная</a></li>
+        <li><a href="about.html" class="nav__link">О проекте</a></li>
+        <li><a href="contacts.html" class="nav__link active">Контакты</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="main">
+  <section class="container">
+    <h1>Контакты</h1>
+    <p>Если у вас есть вопросы, предложения или замечания — вы можете связаться с нами любым удобным способом.</p>
+
+    <h2>Связь с проектом</h2>
+    <ul>
+      <li><b>Email:</b> <a href="mailto:info@rusmone.web-prj.ru">info@rusmone.web-prj.ru</a></li>
+      <li><b>Телеграм:</b> <a href="#">@RusMoneOfficial</a></li>
+    </ul>
+
+    <h2>Форма обратной связи</h2>
+    <form class="contact-form" id="feedback-form" method="POST" action="feedback.php">
+      <label>Ваше имя:</label>
+      <input type="text" name="name" placeholder="Введите имя" required>
+
+      <label>Email:</label>
+      <input type="email" name="email" placeholder="Ваш email" required>
+
+      <label>Сообщение:</label>
+      <textarea rows="5" name="message" placeholder="Ваше сообщение..." required></textarea>
+
+      <button type="submit" class="btn">Отправить</button>
+
+      <p id="form-status" style="margin-top:10px; color:green; display:none;"></p>
+    </form>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>© 2025 RusMone — Справочник памятных монет России</p>
+    <p><a href="mailto:info@rusmone.web-prj.ru">info@rusmone.web-prj.ru</a></p>
+  </div>
+</footer>
+
+<script src="js/online.js"></script>
+<script src="js/protect.js"></script>
+
+<script>
+  document.getElementById("feedback-form").addEventListener("submit", function(e) {
+    e.preventDefault(); // отменяем стандартную отправку
+
+    const form = new FormData(this);
+
+    fetch("feedback.php", {
+      method: "POST",
+      body: form
+    })
+            .then(response => response.text())
+            .then(result => {
+              if (result.trim() === "OK") {
+                document.getElementById("form-status").textContent = "Сообщение успешно отправлено!";
+                document.getElementById("form-status").style.display = "block";
+                document.getElementById("form-status").style.color = "green";
+
+                // очистка формы
+                this.reset();
+              } else {
+                document.getElementById("form-status").textContent = "Ошибка отправки!";
+                document.getElementById("form-status").style.display = "block";
+                document.getElementById("form-status").style.color = "red";
+              }
+            });
+  });
+</script>
+
+</body>
+</html>
